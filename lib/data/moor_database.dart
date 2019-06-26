@@ -8,3 +8,10 @@ class Tasks extends Table {
   DateTimeColumn get dueData => dateTime().nullable()();
   BoolColumn get comleted => boolean().withDefault(Constant(false))();
 }
+
+@UseMoor(tables: [Tasks])
+class AppDatabase extends _$AppDatabase {
+  AppDatabase()
+      : super(FlutterQueryExecutor.inDatabaseFolder(
+            path: "db.sqlite", logStatements: true));
+}
