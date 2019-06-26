@@ -17,4 +17,14 @@ class AppDatabase extends _$AppDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  // the syntax is  operation(table name).operation(entity)
+
+  Future<List<Task>> getAllTasks() => select(tasks).get();
+  Stream<List<Task>> watchAllTasks() => select(tasks).watch();
+
+  Future inserTask(Task task) => into(tasks).insert(task);
+  Future updateTask(Task task) => update(tasks).replace(task);
+
+  Future deleteTask(Task task) => delete(tasks).delete(task);
 }
