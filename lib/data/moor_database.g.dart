@@ -10,9 +10,9 @@ part of 'moor_database.dart';
 class Task extends DataClass {
   final int id;
   final String name;
-  final DateTime dueData;
-  final bool comleted;
-  Task({this.id, this.name, this.dueData, this.comleted});
+  final DateTime dueDate;
+  final bool completed;
+  Task({this.id, this.name, this.dueDate, this.completed});
   factory Task.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -23,10 +23,10 @@ class Task extends DataClass {
     return Task(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       name: stringType.mapFromDatabaseResponse(data['${effectivePrefix}name']),
-      dueData: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}due_data']),
-      comleted:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}comleted']),
+      dueDate: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}due_date']),
+      completed:
+          boolType.mapFromDatabaseResponse(data['${effectivePrefix}completed']),
     );
   }
   factory Task.fromJson(Map<String, dynamic> json,
@@ -34,8 +34,8 @@ class Task extends DataClass {
     return Task(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
-      dueData: serializer.fromJson<DateTime>(json['dueData']),
-      comleted: serializer.fromJson<bool>(json['comleted']),
+      dueDate: serializer.fromJson<DateTime>(json['dueDate']),
+      completed: serializer.fromJson<bool>(json['completed']),
     );
   }
   @override
@@ -44,40 +44,41 @@ class Task extends DataClass {
     return {
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
-      'dueData': serializer.toJson<DateTime>(dueData),
-      'comleted': serializer.toJson<bool>(comleted),
+      'dueDate': serializer.toJson<DateTime>(dueDate),
+      'completed': serializer.toJson<bool>(completed),
     };
   }
 
-  Task copyWith({int id, String name, DateTime dueData, bool comleted}) => Task(
+  Task copyWith({int id, String name, DateTime dueDate, bool completed}) =>
+      Task(
         id: id ?? this.id,
         name: name ?? this.name,
-        dueData: dueData ?? this.dueData,
-        comleted: comleted ?? this.comleted,
+        dueDate: dueDate ?? this.dueDate,
+        completed: completed ?? this.completed,
       );
   @override
   String toString() {
     return (StringBuffer('Task(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('dueData: $dueData, ')
-          ..write('comleted: $comleted')
+          ..write('dueDate: $dueDate, ')
+          ..write('completed: $completed')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => $mrjf($mrjc(
-      $mrjc($mrjc($mrjc(0, id.hashCode), name.hashCode), dueData.hashCode),
-      comleted.hashCode));
+      $mrjc($mrjc($mrjc(0, id.hashCode), name.hashCode), dueDate.hashCode),
+      completed.hashCode));
   @override
   bool operator ==(other) =>
       identical(this, other) ||
       (other is Task &&
           other.id == id &&
           other.name == name &&
-          other.dueData == dueData &&
-          other.comleted == comleted);
+          other.dueDate == dueDate &&
+          other.completed == completed);
 }
 
 class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
@@ -99,27 +100,27 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
         minTextLength: 1, maxTextLength: 50);
   }
 
-  GeneratedDateTimeColumn _dueData;
+  GeneratedDateTimeColumn _dueDate;
   @override
-  GeneratedDateTimeColumn get dueData => _dueData ??= _constructDueData();
-  GeneratedDateTimeColumn _constructDueData() {
+  GeneratedDateTimeColumn get dueDate => _dueDate ??= _constructDueDate();
+  GeneratedDateTimeColumn _constructDueDate() {
     return GeneratedDateTimeColumn(
-      'due_data',
+      'due_date',
       $tableName,
       true,
     );
   }
 
-  GeneratedBoolColumn _comleted;
+  GeneratedBoolColumn _completed;
   @override
-  GeneratedBoolColumn get comleted => _comleted ??= _constructComleted();
-  GeneratedBoolColumn _constructComleted() {
-    return GeneratedBoolColumn('comleted', $tableName, false,
+  GeneratedBoolColumn get completed => _completed ??= _constructCompleted();
+  GeneratedBoolColumn _constructCompleted() {
+    return GeneratedBoolColumn('completed', $tableName, false,
         defaultValue: Constant(false));
   }
 
   @override
-  List<GeneratedColumn> get $columns => [id, name, dueData, comleted];
+  List<GeneratedColumn> get $columns => [id, name, dueDate, completed];
   @override
   $TasksTable get asDslTable => this;
   @override
@@ -130,8 +131,8 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
   bool validateIntegrity(Task instance, bool isInserting) =>
       id.isAcceptableValue(instance.id, isInserting) &&
       name.isAcceptableValue(instance.name, isInserting) &&
-      dueData.isAcceptableValue(instance.dueData, isInserting) &&
-      comleted.isAcceptableValue(instance.comleted, isInserting);
+      dueDate.isAcceptableValue(instance.dueDate, isInserting) &&
+      completed.isAcceptableValue(instance.completed, isInserting);
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -149,11 +150,11 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
     if (d.name != null || includeNulls) {
       map['name'] = Variable<String, StringType>(d.name);
     }
-    if (d.dueData != null || includeNulls) {
-      map['due_data'] = Variable<DateTime, DateTimeType>(d.dueData);
+    if (d.dueDate != null || includeNulls) {
+      map['due_date'] = Variable<DateTime, DateTimeType>(d.dueDate);
     }
-    if (d.comleted != null || includeNulls) {
-      map['comleted'] = Variable<bool, BoolType>(d.comleted);
+    if (d.completed != null || includeNulls) {
+      map['completed'] = Variable<bool, BoolType>(d.completed);
     }
     return map;
   }

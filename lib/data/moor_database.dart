@@ -5,8 +5,8 @@ part 'moor_database.g.dart';
 class Tasks extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text().withLength(min: 1, max: 50)();
-  DateTimeColumn get dueData => dateTime().nullable()();
-  BoolColumn get comleted => boolean().withDefault(Constant(false))();
+  DateTimeColumn get dueDate => dateTime().nullable()();
+  BoolColumn get completed => boolean().withDefault(Constant(false))();
 }
 
 @UseMoor(tables: [Tasks])
