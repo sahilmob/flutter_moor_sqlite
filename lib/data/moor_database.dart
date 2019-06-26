@@ -23,7 +23,7 @@ class AppDatabase extends _$AppDatabase {
   Future<List<Task>> getAllTasks() => select(tasks).get();
   Stream<List<Task>> watchAllTasks() => select(tasks).watch();
 
-  Future inserTask(Task task) => into(tasks).insert(task);
+  Future insertTask(Task task) => into(tasks).insert(task);
   Future updateTask(Task task) => update(tasks).replace(task);
 
   Future deleteTask(Task task) => delete(tasks).delete(task);
